@@ -7,6 +7,9 @@ wrongs = []
 """
 
 HOW TO USE:
+COPY YOUR CODE INTO THE def testing() area
+erase any unnecessary print's like you are uploading it to odtuclass
+
 WRITE "inputxt" in the input statement's right side
 for example if your code is like:
 
