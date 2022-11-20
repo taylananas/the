@@ -37,7 +37,7 @@ return finalanswer
 def testing(inputxt):
     yourinputvariable = inputxt #yourinputvariable = input() instead of input write inputxt
 
-    area = "Your answer" #not have to be a string but must be a number with 2 UNROUNDED decimals as the pdf says
+    area = "194.24" #not have to be a string but must be a number with 2 UNROUNDED decimals as the pdf says
     #print(area) do not do this
     return area #do this instead
 
@@ -46,10 +46,16 @@ def grading(): #a simple check for cases and answers, nothing fancy here
     total = len(temp)
     grade = 0
     for i in range(total):
-        if testing(temp[i]) == temp2[i]:
-            grade +=1
-        else:
-            wrongs.append(i+1)
+        if type(testing(temp[i])) == str:
+            if testing(temp[i]) == temp2[i]:
+                grade +=1
+            else:
+                wrongs.append(i+1)
+        elif type(testing([temp[i]]))==float:
+            if testing(temp[i]) == float(temp2[i]):
+                grade +=1
+            else:
+                wrongs.append(i+1)            
     
     print(f"{grade}/{total}")
     print(f"Wrong questions are: {wrongs}")
