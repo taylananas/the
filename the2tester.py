@@ -3,6 +3,7 @@ answers = open("answers.txt")
 temp = cases.read().splitlines()
 temp2 = answers.read().splitlines()
 wrongs = []
+diffs = []
 
 #there are 16 cases for now, its 4.30am and i want to commit suicide but i will add new ones later
 #this questions should contain simple and some extreme cases but do not worry 'i hope', all are calculated by my brain (also my code too)so the answers should be right
@@ -50,15 +51,22 @@ def grading(): #a simple check for cases and answers, nothing fancy here
             if testing(temp[i]) == temp2[i]:
                 grade +=1
             else:
+                diff = float(temp2[i])-float(testing(temp[i]))
+                diff = "%.2f"%diff
+                diffs.append(diff)
                 wrongs.append(i+1)
         elif type(testing([temp[i]]))==float:
             if testing(temp[i]) == float(temp2[i]):
                 grade +=1
             else:
+                diff = float(temp2[i])-float(testing(temp[i]))
+                diff = "%.2f"%diff
+                diffs.append(diff)
                 wrongs.append(i+1)            
-    
+
     print(f"{grade}/{total}")
     print(f"Wrong questions are: {wrongs}")
+    print(f"Diffs from the answers in the same order: {diffs}")
 
 grading() #runs the grading function which runs the testing function which returns a value that the grading function checks 'w'
 
