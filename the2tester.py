@@ -10,7 +10,9 @@ diffs = []
 #if you think there are some problems with the cases-answers or just want to ask something, just mail me at 'taylan.sahin@metu.edu.tr' 
 #i hope you all (including me ofc) get 100 from the 'the'
 
-
+#!!!!  case #3 and #15 may have different answers
+#      I still do not know how to process those cases and i'm going to ask it to the professors
+#      after I get an answer, I will write it here too
 """
 HOW TO USE:
 COPY YOUR CODE INTO THE def testing() area
