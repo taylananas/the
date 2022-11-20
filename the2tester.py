@@ -12,7 +12,7 @@ for example if your code is like:
 
 inputvalues = input()
 
-CHANGE THIS AS
+CHANGE THIS AS:
 inputvalues = inputxt
 
 and instead of printing the answer, return it
