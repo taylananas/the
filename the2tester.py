@@ -30,14 +30,14 @@ return finalanswer
 
 """
 def testing(inputxt):
-    yourinputvariable = inputxt
+    yourinputvariable = inputxt #yourinputvariable = input() instead of input write inputxt
 
-    area = "Your answer"
+    area = "Your answer" #not have to be a string but must be a number with 2 UNROUNDED decimals as the pdf says
     #print(area) do not do this
-    return area
+    return area #do this instead
 
 
-def grading():
+def grading(): #a simple check for cases and answers, nothing fancy here
     total = len(temp)
     grade = 0
     for i in range(total):
@@ -49,5 +49,5 @@ def grading():
     print(f"{grade}/{total}")
     print(f"Wrong questions are: {wrongs}")
 
-grading()
+grading() #runs the grading function which runs the testing function which returns a value that the grading function checks 'w'
 
