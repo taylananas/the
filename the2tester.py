@@ -5,11 +5,12 @@ temp2 = answers.read().splitlines()
 wrongs = []
 
 #there are 16 cases for now, its 4.30am and i want to commit suicide but i will add new ones later
-#this cases should contain simple cases and some extreme cases but all are calculated by my brain (also my code too) so the answers should be right
-#if you think there is some problems with the cases-answers just mail me taylan.sahin@metu.edu.tr
+#this questions should contain simple and some extreme cases but do not worry 'i hope', all are calculated by my brain (also my code too)so the answers should be right
+#if you think there are some problems with the cases-answers or just want to ask something, just mail me at 'taylan.sahin@metu.edu.tr' 
+#i hope you all (including me ofc) get 100 from the 'the'
+
 
 """
-
 HOW TO USE:
 COPY YOUR CODE INTO THE def testing() area
 erase any unnecessary print's like you are uploading it to odtuclass
@@ -31,8 +32,8 @@ print(finalanswer)
 
 INSTEAD OF PRINT, WRITE:
 return finalanswer
-
 """
+
 def testing(inputxt):
     yourinputvariable = inputxt #yourinputvariable = input() instead of input write inputxt
 
