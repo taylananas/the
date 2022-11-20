@@ -51,7 +51,7 @@ def grading(): #a simple check for cases and answers, nothing fancy here
             if testing(temp[i]) == temp2[i]:
                 grade +=1
             else:
-                diff = float(temp2[i])-float(testing(temp[i]))
+                diff = float(testing(temp[i])) - float(temp2[i])
                 diff = "%.2f"%diff
                 diffs.append(diff)
                 wrongs.append(i+1)
@@ -59,7 +59,7 @@ def grading(): #a simple check for cases and answers, nothing fancy here
             if testing(temp[i]) == float(temp2[i]):
                 grade +=1
             else:
-                diff = float(temp2[i])-float(testing(temp[i]))
+                diff = float(testing(temp[i])) - float(temp2[i])
                 diff = "%.2f"%diff
                 diffs.append(diff)
                 wrongs.append(i+1)            
