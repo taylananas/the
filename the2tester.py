@@ -4,6 +4,10 @@ temp = cases.read().splitlines()
 temp2 = answers.read().splitlines()
 wrongs = []
 
+#there are 16 cases for now, its 4.30am and i want to commit suicide but i will add new ones later
+#this cases should contain simple cases and some extreme cases but all are calculated by my brain (also my code too) so the answers should be right
+#if you think there is some problems with the cases-answers just mail me taylan.sahin@metu.edu.tr
+
 """
 
 HOW TO USE:
