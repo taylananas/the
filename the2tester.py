@@ -57,7 +57,7 @@ def grading(): #a simple check for cases and answers, nothing fancy here
                 diff = "%.2f"%diff
                 diffs.append(diff)
                 wrongs.append(i+1)
-        elif type(testing([temp[i]]))==float:
+        elif type(testing(temp[i]))==float:
             if testing(temp[i]) == float(temp2[i]):
                 grade +=1
             else:
