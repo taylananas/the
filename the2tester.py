@@ -18,22 +18,23 @@ HOW TO USE:
 Copy your the2.py into the same folder
 """
 
-def testing(inputxt, testedvalues):
+def testing(inputxt, testedvalues, i):
     if os.path.isfile("the2.py"):
         area = subprocess.run(f"{sys.executable} the2.py", shell=1 ,input=inputxt, encoding="ascii", stdout=subprocess.PIPE).stdout
     else:
         raise FileNotFoundError("Please put the2.py into the same folder.")
-    testedvalues.append(float(area)) #the2.py should return 2 UNROUNDED decimals as the pdf says
+    testedvalues[i] = float(area) #the2.py should return 2 UNROUNDED decimals as the pdf says
+    testedvalues[len(testedvalues)-1] += 1
 
 
 def grading(): #a simple check for cases and answers, nothing fancy here
     total = len(temp)
     grade = 0
-    testedvalues = []
+    testedvalues = [*range(total)] + [0]
     for i in range(total):
-        thread = threading.Thread(target=testing, args=[temp[i], testedvalues]) # Subprocess already spawns new processes, so multithreading is enough
+        thread = threading.Thread(target=testing, args=[temp[i], testedvalues, i]) # Subprocess already spawns new processes, so multithreading is enough
         thread.start()
-    while len(testedvalues) < total:
+    while testedvalues[total] < total:
         time.sleep(0.01)
     for i in range(total):
         if abs(testedvalues[i] - temp2[i]) < 0.01:
