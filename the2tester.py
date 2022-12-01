@@ -1,7 +1,10 @@
+import sys, subprocess, os, threading, time
 cases = open("cases.txt")
 answers = open("answers.txt")
 temp = cases.read().splitlines()
-temp2 = answers.read().splitlines()
+temp2 = [*map(float, answers.read().splitlines())]
+cases.close()
+answers.close()
 wrongs = []
 diffs = []
 
@@ -12,60 +15,38 @@ diffs = []
 #      We will not going to include the area of little triangle!
 """
 HOW TO USE:
-COPY YOUR CODE INTO THE def testing() area
-erase any unnecessary print's like you are uploading it to odtuclass
-
-WRITE "inputxt" in the input statement's right side
-for example if your code is like:
-
-inputvalues = input()
-
-CHANGE THIS AS:
-inputvalues = inputxt
-
-and instead of printing the answer, return it
-
-for example:
-
-finalanswer = areaofthegreenzone
-print(finalanswer)
-
-INSTEAD OF PRINT, WRITE:
-return finalanswer
+Copy your the2.py into the same folder
 """
 
-def testing(inputxt):
-    yourinputvariable = inputxt #yourinputvariable = input() instead of input write inputxt
-
-    area = "194.24" #not have to be a string but must be a number with 2 UNROUNDED decimals as the pdf says
-    #print(area) do not do this
-    return area #do this instead
+def testing(inputxt, testedvalues, i):
+    if os.path.isfile("the2.py"):
+        area = subprocess.run(f"{sys.executable} the2.py", shell=1 ,input=inputxt, encoding="ascii", stdout=subprocess.PIPE).stdout
+    else:
+        raise FileNotFoundError("Please put the2.py into the same folder.")
+    testedvalues[i] = float(area) #the2.py should return 2 UNROUNDED decimals as the pdf says
+    testedvalues[len(testedvalues)-1] += 1
 
 
 def grading(): #a simple check for cases and answers, nothing fancy here
     total = len(temp)
     grade = 0
+    testedvalues = [*range(total)] + [0]
     for i in range(total):
-        if type(testing(temp[i])) == str:
-            if testing(temp[i]) == temp2[i]:
-                grade +=1
-            else:
-                diff = float(testing(temp[i])) - float(temp2[i])
-                diff = "%.2f"%diff
-                diffs.append(diff)
-                wrongs.append(i+1)
-        elif type(testing(temp[i]))==float:
-            if testing(temp[i]) == float(temp2[i]):
-                grade +=1
-            else:
-                diff = float(testing(temp[i])) - float(temp2[i])
-                diff = "%.2f"%diff
-                diffs.append(diff)
-                wrongs.append(i+1)            
+        thread = threading.Thread(target=testing, args=[temp[i], testedvalues, i]) # Subprocess already spawns new processes, so multithreading is enough
+        thread.start()
+    while testedvalues[total] < total:
+        time.sleep(0.01)
+    for i in range(total):
+        if abs(testedvalues[i] - temp2[i]) < 0.01:
+            grade +=1
+        else:
+            diff = float(testedvalues[i]) - float(temp2[i])
+            diff = "%.2f"%diff
+            diffs.append(diff)
+            wrongs.append(i+1)         
 
     print(f"{grade}/{total}")
     print(f"Wrong questions are: {wrongs}")
     print(f"Diffs from the answers in the same order: {diffs}")
 
 grading() #runs the grading function which runs the testing function which returns a value that the grading function checks 'w'
-
