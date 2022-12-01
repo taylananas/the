@@ -6,13 +6,10 @@ temp2 = [*map(float, answers.read().splitlines())]
 cases.close()
 answers.close()
 wrongs = []
-diffs = []
 
 #this questions should contain simple and some extreme cases but do not worry 'i hope', all are calculated by my brain (also my code too)so the answers should be right
 #if you think there are some problems with the cases-answers or just want to ask something, just mail me at 'taylan.sahin@metu.edu.tr' 
-#i hope you all (including me ofc) get 100 from the 'the'
 
-#      We will not going to include the area of little triangle!
 """
 HOW TO USE:
 Copy your the2.py into the same folder
@@ -23,11 +20,10 @@ def testing(inputxt, testedvalues, i):
         area = subprocess.run(f"{sys.executable} the2.py", shell=1 ,input=inputxt, encoding="ascii", stdout=subprocess.PIPE).stdout
     else:
         raise FileNotFoundError("Please put the2.py into the same folder.")
-    testedvalues[i] = float(area) #the2.py should return 2 UNROUNDED decimals as the pdf says
+    testedvalues[i] = float(area)
     testedvalues[len(testedvalues)-1] += 1
 
-
-def grading(): #a simple check for cases and answers, nothing fancy here
+def grading(): #a simple check for cases and answers, nothing fancy here, maybe something thanks to @Lojcs
     total = len(temp)
     grade = 0
     testedvalues = [*range(total)] + [0]
@@ -42,11 +38,10 @@ def grading(): #a simple check for cases and answers, nothing fancy here
         else:
             diff = float(testedvalues[i]) - float(temp2[i])
             diff = "%.2f"%diff
-            diffs.append(diff)
-            wrongs.append(i+1)         
+            wrongs.append([i+1,diff])         
 
     print(f"{grade}/{total}")
-    print(f"Wrong questions are: {wrongs}")
-    print(f"Diffs from the answers in the same order: {diffs}")
+    if wrongs:
+        print(f"Wrong questions, diffs are: {wrongs}")
 
 grading() #runs the grading function which runs the testing function which returns a value that the grading function checks 'w'
