@@ -32,7 +32,7 @@ def grading(): #a simple check for cases and answers, nothing fancy here
     testedvalues = []
     for i in range(total):
         thread = threading.Thread(target=testing, args=[temp[i], testedvalues]) # Subprocess already spawns new processes, so multithreading is enough
-        thread.run()
+        thread.start()
     while len(testedvalues) < total:
         time.sleep(0.01)
     for i in range(total):
