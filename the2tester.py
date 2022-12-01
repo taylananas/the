@@ -1,4 +1,4 @@
-import sys, subprocess, os
+import sys, subprocess, os, threading, time
 cases = open("cases.txt")
 answers = open("answers.txt")
 temp = cases.read().splitlines()
@@ -18,23 +18,28 @@ HOW TO USE:
 Copy your the2.py into the same folder
 """
 
-def testing(inputxt):
+def testing(inputxt, testedvalues):
     if os.path.isfile("the2.py"):
         area = subprocess.run(f"{sys.executable} the2.py", shell=1 ,input=inputxt, encoding="ascii", stdout=subprocess.PIPE).stdout
     else:
         raise FileNotFoundError("Please put the2.py into the same folder.")
-    return float(area) #the2.py should return 2 UNROUNDED decimals as the pdf says
+    testedvalues.append(float(area)) #the2.py should return 2 UNROUNDED decimals as the pdf says
 
 
 def grading(): #a simple check for cases and answers, nothing fancy here
     total = len(temp)
     grade = 0
+    testedvalues = []
     for i in range(total):
-        tested = testing(temp[i])
-        if abs(tested - temp2[i]) < 0.01:
+        thread = threading.Thread(target=testing, args=[temp[i], testedvalues]) # Subprocess already spawns new processes, so multithreading is enough
+        thread.run()
+    while len(testedvalues) < total:
+        time.sleep(0.01)
+    for i in range(total):
+        if abs(testedvalues[i] - temp2[i]) < 0.01:
             grade +=1
         else:
-            diff = float(tested) - float(temp2[i])
+            diff = float(testedvalues[i]) - float(temp2[i])
             diff = "%.2f"%diff
             diffs.append(diff)
             wrongs.append(i+1)         
@@ -44,4 +49,3 @@ def grading(): #a simple check for cases and answers, nothing fancy here
     print(f"Diffs from the answers in the same order: {diffs}")
 
 grading() #runs the grading function which runs the testing function which returns a value that the grading function checks 'w'
-
