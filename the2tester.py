@@ -1,3 +1,4 @@
+from asyncio import threads
 import sys, subprocess, os, threading, time
 cases = open("cases.txt")
 answers = open("answers.txt")
@@ -17,21 +18,22 @@ Copy your the2.py into the same folder
 
 def testing(inputxt, testedvalues, i):
     if os.path.isfile("the2.py"):
-        area = subprocess.run(f"{sys.executable} the2.py", shell=1 ,input=inputxt, encoding="ascii", stdout=subprocess.PIPE).stdout
+        area = subprocess.run(f'"{sys.executable}" the2.py', shell=1, input=inputxt, encoding="ascii", stdout=subprocess.PIPE).stdout
     else:
         raise FileNotFoundError("Please put the2.py into the same folder.")
     testedvalues[i] = float(area)
-    testedvalues[len(testedvalues)-1] += 1
 
 def grading(): #a simple check for cases and answers, nothing fancy here, maybe something thanks to @Lojcs
     total = len(temp)
     grade = 0
-    testedvalues = [*range(total)] + [0]
+    testedvalues = [*range(total)]
+    threads = []
     for i in range(total):
         thread = threading.Thread(target=testing, args=[temp[i], testedvalues, i]) # Subprocess already spawns new processes, so multithreading is enough
         thread.start()
-    while testedvalues[total] < total:
-        time.sleep(0.01)
+        threads.append(thread)
+    for thread in threads:
+        thread.join()
     for i in range(total):
         if abs(testedvalues[i] - temp2[i]) < 0.01:
             grade +=1
